@@ -1,0 +1,84 @@
+<?php
+	require_once'db/connection.php';
+
+	$sql = "SELECT * FROM signup_user";
+	$result = $conn->query($sql);
+?>
+
+<?php include('session.php');?>
+<?php require 'header.php'; ?>
+<div class="row">
+	<?php require 'dashboard.php'; ?>
+	<div class="col-md-10 col-sm-10 col-lg-10 col-xs-10">
+		
+		<div class="dashboard-top logintop">
+			<ul> 
+				<li><h5> VIEW SIGNUP TABLE</h5></li> 
+				<li>					
+					<img src="<?php echo $login_img; ?>"  alt="">
+					<a href="welcome.php"><?php echo $login_Uname ; ?></a>
+					<a href="logout.php">signout</a>
+				</li>
+			</ul>
+		
+		 
+		
+
+		</div>
+		
+<div class="view-table">
+  	<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Fullname</th>
+      <th scope="col">UserName</th>
+      <th scope="col">Email</th>
+      <th scope="col">Gender</th>
+      <th scope="col">Country</th>
+      <th scope="col">Password</th>
+      <th scope="col">Details</th>
+      <th scope="col">file/image</th>
+    </tr>
+  </thead>
+  <tbody>
+	  
+	  <?php
+	  	if(!empty($result)){		
+    	while($row = $result->fetch_assoc()) {//this fetches array 
+		?>
+        
+				<tr>	
+				  <td><?php echo $row['fname'];?></td>
+				  <td><?php echo $row['uname'];?></td>
+				  <td><?php echo $row['email'];?></td>
+				  <td><?php echo $row['gender'];?></td>
+				  <td><?php echo $row['country'];?></td>
+				  <td><?php echo $row['password'];?></td>
+				  <td><?php echo $row['details'];?></td>
+				  <td><img src="<?php echo $row['img'];?>" alt="img" style=" width:75px; height: 75px;"></td>
+				  <td>
+					<a href="update_signup.php?id=<?php echo $row['id'];?>" class="btn btn-primary">EDIT</a>
+					<a href="delete_signup.php?id=<?php echo $row['id'];?>" class="btn btn-danger">DELETE</a>		
+				  </td>
+	     		</tr>
+	  			
+	  <?php
+			}
+	 
+		}
+ else {
+    echo "NO results database empty";
+	}
+
+	   ?>
+	
+    
+  </tbody>
+</table>
+		<tr><a href="add_signup.php" class="btn btn-primary">ADD NEW</a></tr>			
+</div>
+</div>
+</div>
+	
+
+<?php require 'footer.php'; ?>
